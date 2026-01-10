@@ -13,6 +13,7 @@ Claude Pro MaxプランもしくはEnterpriseプレミアムシートを契約�
 - CLIツールを使わせる
 - テストを書かせる
 - デザインはv0などで時間をかけて行う
+- Claude Code on the Webを活用しよう
 
 ## 指示の出し方
 
@@ -50,3 +51,9 @@ issueもActionsも人間が見に行く必要はない。Code Rabbitなどのレ
 UIデザインは下記のようなスキルを使うのも有効かも。
 
 https://github.com/Koomook/claude-frontend-skills
+
+## Claude code on  the web
+
+ドキュメント整備、プランニングなどの計画を立てさせるなどはどんなプロジェクトでも有効。
+開発環境にSSHできなくてもAIを働かせ続けることができる。
+スマホ確認できるのも便利。
