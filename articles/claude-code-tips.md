@@ -1,7 +1,10 @@
-Claude Code を使う中で考えていること
-===================================
-
-2026.1.11
+---
+title: "Claude Code を使う中で考えていること"
+emoji: "🤖"
+type: "tech"
+topics: ["claudecode", "ai", "cli", "productivity"]
+published: true
+---
 
 ## 前提
 
