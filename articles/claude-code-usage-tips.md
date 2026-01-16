@@ -13,6 +13,7 @@ Claude Pro MaxプランもしくはEnterpriseプレミアムシートを契約�
 ## tl;dr
 
 - ultrathinkはガンガン使う
+- git worktreeで複数エージェントを並行稼働
 - CLIツールを活用してコーディング以外もAIに任せる
 - テストを書かせる
 - デザインはv0などで時間をかけて行う
@@ -24,6 +25,65 @@ Claude Pro MaxプランもしくはEnterpriseプレミアムシートを契約�
 ultrathinkもガンガン使って大丈夫。明らかに簡単な変更以外は手癖でultrathinkさせよう。
 
 工夫としては、やりたいことをチャット系のAIに相談し、壁打ちを経てから指示文をまとめさせるのが有効。
+
+## git worktreeで複数エージェントを並行稼働
+
+Claude Codeを複数同時に走らせたいとき、同じディレクトリで作業させるとコンフリクトが起きる。`git worktree`を使えば、1つのリポジトリから複数の作業ディレクトリを作成でき、それぞれで別のClaude Codeを動かせる。
+
+### セットアップ
+
+```bash
+# メインのリポジトリがあるとして
+cd ~/projects/my-app
+
+# worktreeを作成（ブランチごとに別ディレクトリを用意）
+git worktree add ../my-app-feature-a feature-a
+git worktree add ../my-app-feature-b feature-b
+git worktree add ../my-app-bugfix bugfix-123
+```
+
+これで以下のような構成になる：
+
+```
+~/projects/
+├── my-app/           # メイン（mainブランチ）
+├── my-app-feature-a/ # feature-aブランチ
+├── my-app-feature-b/ # feature-bブランチ
+└── my-app-bugfix/    # bugfix-123ブランチ
+```
+
+### 並行作業の実行
+
+各ディレクトリで別々のターミナルを開き、それぞれでClaude Codeを起動する。
+
+```bash
+# ターミナル1
+cd ~/projects/my-app-feature-a && claude
+
+# ターミナル2
+cd ~/projects/my-app-feature-b && claude
+
+# ターミナル3
+cd ~/projects/my-app-bugfix && claude
+```
+
+これで3つのタスクを同時並行で進められる。
+
+### 作業完了後のクリーンアップ
+
+```bash
+# worktreeの一覧確認
+git worktree list
+
+# 不要になったworktreeを削除
+git worktree remove ../my-app-feature-a
+```
+
+### 注意点
+
+- 各worktreeは独立した作業ディレクトリなので、`node_modules`などの依存関係は個別にインストールが必要
+- 同じブランチを複数のworktreeでチェックアウトすることはできない
+- `.git`は共有されるため、コミット履歴はリアルタイムで同期される
 
 ## CLIツール
 
